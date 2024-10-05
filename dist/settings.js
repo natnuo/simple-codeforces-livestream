@@ -1,0 +1,31 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports._ST = void 0;
+const SETTINGS = {
+    CONTEST_ID: 518137,
+    PROBLEM_COLORS: {
+        "A": "#fd7e14",
+        "B": "#ffc107",
+        "C": "#198754",
+        "D": "#0d6efd",
+        "E": "#6610f2",
+        "F1": "#222",
+        "F2": "#222",
+    },
+    MAX_SUBMISSIONS_DISPLAYED: 10,
+    MAX_STANDINGS_DISPLAYED: 5,
+    STATUS_RELOAD_INTERVAL_MS: 5000,
+    STANDINGS_RELOAD_INTERVAL_MS: 5000,
+    STATUS_PATH: "/status",
+    STANDINGS_PATH: "/standings",
+};
+exports._ST = {
+    CID: SETTINGS.CONTEST_ID,
+    PCS: SETTINGS.PROBLEM_COLORS,
+    MXSMD: SETTINGS.MAX_SUBMISSIONS_DISPLAYED,
+    MXSTD: SETTINGS.MAX_STANDINGS_DISPLAYED,
+    STRIMS: SETTINGS.STATUS_RELOAD_INTERVAL_MS,
+    SNRIMS: SETTINGS.STANDINGS_RELOAD_INTERVAL_MS,
+    STATUS_PATH: SETTINGS.STATUS_PATH,
+    STANDINGS_PATH: SETTINGS.STANDINGS_PATH,
+};

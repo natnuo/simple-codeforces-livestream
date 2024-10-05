@@ -1,0 +1,21 @@
+<div class="container-fluid d-flex flex-column gap-2 bg-white rounded bg-gradient p-0">
+  <div>
+    <div class="fw-medium fs-3 text-center rounded border border-1 py-2">Submissions</div>
+  </div>
+  {{#each submissions}}
+    <div class="d-flex flex-nowrap align-items-center">
+      <div class="p-2 fw-semibold text-center rounded-start border border-1 border-end-0" style="width: 2rem; border-color: {{problem_color}}!important; background-color: {{problem_color}}69;">{{problem_code}}</div>
+      <div class="fw-semibold text-center p-2 border border-1 border-start-0 border-end-0" style="width: 4rem; border-color:
+        {{#ifEquals verdict "AC"}}#198754
+        {{else}}#dc3545
+        {{/ifEquals}}!important; background-color:
+        {{#ifEquals verdict "AC"}}#19875469
+        {{else}}#dc354569
+        {{/ifEquals}}!important;
+      ">{{verdict}}</div>
+      <div class="w-100 text-truncate p-2 border-start-0 border border-1 rounded-end" style="border-color: #888!important;background-color: #00000011;">{{author}}</div>
+    </div>
+  {{/each}}
+</div>
+
+<script>setTimeout(() => { window.location.reload(); }, {{reload_interval}});</script>
