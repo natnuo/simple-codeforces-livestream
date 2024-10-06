@@ -16,7 +16,7 @@ Time to complete: ~5 minutes
 
 Navigate to <a href="https://codeforces.com/settings/api">https://codeforces.com/settings/api</a> and add a new Codeforces API Key. Save the key and the secret.
 
-<h3>Obtaining the software</h3>
+<h3>Obtaining the Software</h3>
 
 Clone this repository:
 
