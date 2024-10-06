@@ -1,33 +1,33 @@
-<div class="container-fluid bg-white rounded bg-gradient p-0 w-100 d-flex flex-column rounded" style="box-sizing: border-box;">
+<div class="container-fluid bg-white rounded bg-gradient p-0 w-100 d-flex flex-column rounded gap-1" style="box-sizing: border-box;">
   <div class="d-flex p-2 fs-3 align-items-center justify-content-center">
     Standings
   </div>
-  <div class="d-flex rounded-top">
-    <div class="p-1 text-truncate border-bottom border-1" style="flex: 4; border-color: #ccc!important;">Team</div>
-    <div class="p-1 border-bottom border-1 text-center" style="width: 4rem; border-color: #ccc!important;">Points</div>
+  <div class="d-flex rounded-top gap-1">
+    <div class="p-1 text-truncate rounded border-bottom border-1" style="flex: 2; background-color: #fcfcfc; border-color: #e6e6e6!important;">Team</div>
+    <div class="p-1 rounded border-bottom border-1 text-center" style="width: 4rem; background-color: #fcfcfc; border-color: #e6e6e6!important;">Points</div>
     {{#each problems}}
-      <div class="p-1 border-bottom border-1 text-center" style="border-color: {{color}}!important;background-color: {{color}}69;flex: 1;">{{code}}</div>
+      <div class="p-1 rounded border-bottom border-1 text-center" style="border-color: {{color}}!important;background-color: {{color}}69;flex: 1;">{{code}}</div>
     {{/each}}
   </div>
   {{#each users}}
-    <div class="d-flex">
-      <div class="p-1 text-truncate" style="flex: 4;">{{handle}}</div>
+    <div class="d-flex gap-1">
+      <div class="p-1 text-truncate" style="flex: 2;">{{handle}}</div>
       <div class="p-1 text-center" style="width: 4rem;">{{points}}</div>
       {{#each problem_results}}
           {{#ifEquals time "-1"}}
             {{#ifEquals fails 0}}
               <div class="p-1" style="flex: 1;"></div>
             {{else}}
-              <div class="p-1 d-flex align-items-center justify-content-center" style="flex: 1;background-color: {{../../rj_color}}28;">
+              <div class="p-1 d-flex rounded align-items-center justify-content-center" style="flex: 1;background-color: {{../../rj_color}}28;">
                 <div class="fw-bold" style="color: {{../../rj_color}};">-{{fails}}</div>
               </div>
             {{/ifEquals}}
           {{else}}
-            <div class="p-1 d-flex align-items-center justify-content-between" style="flex: 1;background-color: {{../../ac_color}}28;">
-              <div class="fw-bold ms-1" style="color: {{../../ac_color}};">
+            <div class="p-1 d-flex flex-column align-items-center rounded justify-content-between" style="flex: 1;background-color: {{../../ac_color}}28;">
+              <div class="fw-bold" style="color: {{../../ac_color}};">
                 +{{#ifEquals fails 0}}{{else}}{{fails}}{{/ifEquals}}
               </div>
-              <div class="me-1" style="font-size: 0.8rem;">{{time}}</div>
+              <div style="font-size: 0.8rem;">{{time}}</div>
             </div>
           {{/ifEquals}}
       {{/each}}

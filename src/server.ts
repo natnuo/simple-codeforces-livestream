@@ -38,92 +38,105 @@ const get = async (endpoint: string) => {
 };
 
 app.get(_ST.STATUS_PATH, async (req, res) => {
-  const base_req = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSMD}&from=1`;
-
-  const response = await get(auth_req(base_req));
-
-  const submissions = response.result.map((subjson: any) => {
-    let verdict;
-    switch (subjson.verdict) {
-      case "OK":
-        verdict = "AC";
-        break;
-      case "WRONG_ANSWER":
-        verdict = "WA";
-        break;
-      case "TIME_LIMIT_EXCEEDED":
-        verdict = "TLE";
-        break;
-      case "COMPILATION_ERROR":
-        verdict = "CTE";
-        break;
-      case "RUNTIME_ERROR":
-        verdict = "RTE";
-        break;
-      case "TESTING":
-        verdict = "...";
-        break;
-      default:
-        console.error(`UNKNOWN VERDICT: ${subjson.verdict}`);
-        verdict = "F";
-        break;
-    }
-
-    return {
-      problem_code: subjson.problem.index,
-      problem_color: _ST.PCS[subjson.problem.index],
-      verdict,
-      author: subjson.author.teamName ?? subjson.author.members[0].handle,
-    };
-  });
-
-  res.render("status", {
-    submissions,
-    reload_interval: _ST.SNRIMS,
-    ac_color: _ST.ACC,
-    rj_color: _ST.RJC,
-    tt_color: _ST.TTC,
-  });
+  try {
+    const base_req = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSMD}&from=1`;
+  
+    const response = await get(auth_req(base_req));
+  
+    const submissions = response.result.map((subjson: any) => {
+      let verdict;
+      switch (subjson.verdict) {
+        case "OK":
+          verdict = "AC";
+          break;
+        case "WRONG_ANSWER":
+          verdict = "WA";
+          break;
+        case "TIME_LIMIT_EXCEEDED":
+          verdict = "TLE";
+          break;
+        case "COMPILATION_ERROR":
+          verdict = "CTE";
+          break;
+        case "RUNTIME_ERROR":
+          verdict = "RTE";
+          break;
+        case "TESTING":
+          verdict = "...";
+          break;
+        case "IDLENESS_LIMIT_EXCEEDED":
+          verdict = "ILE";
+          break;
+        default:
+          console.error(`UNKNOWN VERDICT: ${subjson.verdict}`);
+          verdict = "F";
+          break;
+      }
+  
+      return {
+        problem_code: subjson.problem.index,
+        problem_color: _ST.PCS[subjson.problem.index],
+        verdict,
+        author: subjson.author.teamName ?? subjson.author.members[0].handle,
+      };
+    });
+  
+    res.render("status", {
+      submissions,
+      reload_interval: _ST.SNRIMS,
+      ac_color: _ST.ACC,
+      rj_color: _ST.RJC,
+      tt_color: _ST.TTC,
+    });
+  } catch (e) {
+    console.error(e);
+    res.redirect(_ST.STATUS_PATH);
+  }
 });
 
 app.get(_ST.STANDINGS_PATH, async (req, res) => {
-  const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=false`;
-
-  const response = await get(auth_req(base_req));
-
-  const users = response.result.rows.map((usrjson: any) => {
-    return {
-      handle: usrjson.party.teamName ?? usrjson.party.members[0].handle,
-      points: usrjson.penalty ? usrjson.penalty : usrjson.points,
-      problem_results: usrjson.problemResults.map((prjson: any) => {
+  try {
+    const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=false`;
+  
+    const response = await get(auth_req(base_req));
+  
+    const users = response.result.rows.map((usrjson: any) => {
+      return {
+        handle: usrjson.party.teamName ?? usrjson.party.members[0].handle,
+        points: usrjson.penalty ? usrjson.penalty : usrjson.points,
+        problem_results: usrjson.problemResults.map((prjson: any) => {
+          return {
+            time: prjson.bestSubmissionTimeSeconds !== undefined ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
+            fails: prjson.rejectedAttemptCount,
+          };
+        }),
+      };
+    });
+  
+    res.render("standings", {
+      users,
+      problems: Object.keys(_ST.PCS).map((key) => {
         return {
-          time: prjson.bestSubmissionTimeSeconds !== undefined ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
-          fails: prjson.rejectedAttemptCount,
+          code: key,
+          color: _ST.PCS[key],
         };
       }),
-    };
-  });
-
-  res.render("standings", {
-    users,
-    problems: Object.keys(_ST.PCS).map((key) => {
-      return {
-        code: key,
-        color: _ST.PCS[key],
-      };
-    }),
-    problem_count: Object.keys(_ST.PCS).length,
-    reload_interval: _ST.STRIMS,
-    ac_color: _ST.ACC,
-    rj_color: _ST.RJC,
-    helpers: {
-      // not just passed as option bc i felt like it
-      getColWidth(problem_count: number) {
-        console.log(problem_count);
-        return `${50/problem_count}%`;
+      problem_count: Object.keys(_ST.PCS).length,
+      reload_interval: _ST.STRIMS,
+      ac_color: _ST.ACC,
+      rj_color: _ST.RJC,
+      helpers: {
+        // not just passed as option bc i felt like it
+        getColWidth(problem_count: number) {
+          console.log(problem_count);
+          return `${50/problem_count}%`;
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    console.error(e);
+    res.redirect(_ST.STANDINGS_PATH);
+  }
 });
 
 app.listen(PORT, () => {
