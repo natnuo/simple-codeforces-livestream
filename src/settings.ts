@@ -1,17 +1,22 @@
 const SETTINGS = {
-  CONTEST_ID: 518137,
+  CONTEST_ID: 2013,
+  // COLOR COUNT MUST MATCH PROBLEM COUNT
   PROBLEM_COLORS: {
-    "A": "#fd7e14",
-    "B": "#ffc107",
-    "C": "#198754",
-    "D": "#0d6efd",
-    "E": "#6610f2",
-    "F1": "#222",
-    "F2": "#222",
+    "A": "#FF8B00",
+    "B": "#FFF500",
+    "C": "#00FF75",
+    "D": "#000AFF",
+    "E": "#FF008A",
+    "F1": "#DDDDDD",  // #DDD is invalid, must be six char hex code
+    "F2": "#DDDDDD",
   },
 
+  ACCEPTED_COLOR: "#198754",  // must be six char hex code
+  TESTING_COLOR: "#cfcd30",
+  REJECTED_COLOR: "#dc3545",
+
   MAX_SUBMISSIONS_DISPLAYED: 10,
-  MAX_STANDINGS_DISPLAYED: 5,
+  MAX_STANDINGS_DISPLAYED: 20,
 
   STATUS_RELOAD_INTERVAL_MS: 5000,
   STANDINGS_RELOAD_INTERVAL_MS: 5000,
@@ -23,6 +28,10 @@ const SETTINGS = {
 export const _ST = {
   CID: SETTINGS.CONTEST_ID,
   PCS: SETTINGS.PROBLEM_COLORS as {[key: string]: string},
+
+  ACC: SETTINGS.ACCEPTED_COLOR,
+  TTC: SETTINGS.TESTING_COLOR,
+  RJC: SETTINGS.REJECTED_COLOR,
 
   MXSMD: SETTINGS.MAX_SUBMISSIONS_DISPLAYED,
   MXSTD: SETTINGS.MAX_STANDINGS_DISPLAYED,

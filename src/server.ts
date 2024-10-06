@@ -12,8 +12,9 @@ const app = express();
 const hbs = create({
   // Specify helpers which are only registered on this instance.
   helpers: {
-    ifEquals(a: any, b: any, options: any) { return a === b ? options.fn(this) : options.inverse(this); }
-  }
+    ifEquals(a: any, b: any, options: any) { return a === b ? options.fn(this) : options.inverse(this); },
+    add(a: any, b: any) { return a+b; },
+  },
 });
 
 app.engine('handlebars', hbs.engine);
@@ -37,7 +38,7 @@ const get = async (endpoint: string) => {
 };
 
 app.get(_ST.STATUS_PATH, async (req, res) => {
-  const base_req = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&asManager=true&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1`;
+  const base_req = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSMD}&from=1`;
 
   const response = await get(auth_req(base_req));
 
@@ -59,6 +60,9 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
       case "RUNTIME_ERROR":
         verdict = "RTE";
         break;
+      case "TESTING":
+        verdict = "...";
+        break;
       default:
         console.error(`UNKNOWN VERDICT: ${subjson.verdict}`);
         verdict = "F";
@@ -69,22 +73,61 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
       problem_code: subjson.problem.index,
       problem_color: _ST.PCS[subjson.problem.index],
       verdict,
-      author: subjson.author.members[0].handle,
+      author: subjson.author.teamName ?? subjson.author.members[0].handle,
     };
   });
 
   res.render("status", {
     submissions,
     reload_interval: _ST.SNRIMS,
+    ac_color: _ST.ACC,
+    rj_color: _ST.RJC,
+    tt_color: _ST.TTC,
   });
 });
 
-app.get(_ST.STANDINGS_PATH, (req, res) => {
-  const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&asManager=true&contestID=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=false`;
+app.get(_ST.STANDINGS_PATH, async (req, res) => {
+  const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=false`;
 
-  res.render("standings");
+  const response = await get(auth_req(base_req));
+
+  const users = response.result.rows.map((usrjson: any) => {
+    return {
+      handle: usrjson.party.teamName ?? usrjson.party.members[0].handle,
+      points: usrjson.penalty ? usrjson.penalty : usrjson.points,
+      problem_results: usrjson.problemResults.map((prjson: any) => {
+        return {
+          time: prjson.bestSubmissionTimeSeconds !== undefined ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
+          fails: prjson.rejectedAttemptCount,
+        };
+      }),
+    };
+  });
+
+  res.render("standings", {
+    users,
+    problems: Object.keys(_ST.PCS).map((key) => {
+      return {
+        code: key,
+        color: _ST.PCS[key],
+      };
+    }),
+    problem_count: Object.keys(_ST.PCS).length,
+    reload_interval: _ST.STRIMS,
+    ac_color: _ST.ACC,
+    rj_color: _ST.RJC,
+    helpers: {
+      // not just passed as option bc i felt like it
+      getColWidth(problem_count: number) {
+        console.log(problem_count);
+        return `${50/problem_count}%`;
+      },
+    },
+  });
 });
 
 app.listen(PORT, () => {
-  console.log("Server listening on port", PORT);
+  console.log(`Server listening at:
+:. http://localhost:${PORT}/status
+:. http://localhost:${PORT}/standings`);
 });

@@ -23,8 +23,9 @@ const app = (0, express_1.default)();
 const hbs = (0, express_handlebars_1.create)({
     // Specify helpers which are only registered on this instance.
     helpers: {
-        ifEquals(a, b, options) { return a === b ? options.fn(this) : options.inverse(this); }
-    }
+        ifEquals(a, b, options) { return a === b ? options.fn(this) : options.inverse(this); },
+        add(a, b) { return a + b; },
+    },
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -41,9 +42,10 @@ const get = (endpoint) => __awaiter(void 0, void 0, void 0, function* () {
     return response;
 });
 app.get(settings_1._ST.STATUS_PATH, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const base_req = `/contest.status?apiKey=${secrets_1.SECRETS.CF_API_KEY}&asManager=true&contestId=${settings_1._ST.CID}&count=${settings_1._ST.MXSTD}&from=1`;
+    const base_req = `/contest.status?apiKey=${secrets_1.SECRETS.CF_API_KEY}&contestId=${settings_1._ST.CID}&count=${settings_1._ST.MXSMD}&from=1`;
     const response = yield get(auth_req(base_req));
     const submissions = response.result.map((subjson) => {
+        var _a;
         let verdict;
         switch (subjson.verdict) {
             case "OK":
@@ -61,6 +63,9 @@ app.get(settings_1._ST.STATUS_PATH, (req, res) => __awaiter(void 0, void 0, void
             case "RUNTIME_ERROR":
                 verdict = "RTE";
                 break;
+            case "TESTING":
+                verdict = "...";
+                break;
             default:
                 console.error(`UNKNOWN VERDICT: ${subjson.verdict}`);
                 verdict = "F";
@@ -70,18 +75,56 @@ app.get(settings_1._ST.STATUS_PATH, (req, res) => __awaiter(void 0, void 0, void
             problem_code: subjson.problem.index,
             problem_color: settings_1._ST.PCS[subjson.problem.index],
             verdict,
-            author: subjson.author.members[0].handle,
+            author: (_a = subjson.author.teamName) !== null && _a !== void 0 ? _a : subjson.author.members[0].handle,
         };
     });
     res.render("status", {
         submissions,
         reload_interval: settings_1._ST.SNRIMS,
+        ac_color: settings_1._ST.ACC,
+        rj_color: settings_1._ST.RJC,
+        tt_color: settings_1._ST.TTC,
     });
 }));
-app.get(settings_1._ST.STANDINGS_PATH, (req, res) => {
-    const base_req = `/contest.standings?apiKey=${secrets_1.SECRETS.CF_API_KEY}&asManager=true&contestID=${settings_1._ST.CID}&count=${settings_1._ST.MXSTD}&from=1&showUnofficial=false`;
-    res.render("standings");
-});
+app.get(settings_1._ST.STANDINGS_PATH, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const base_req = `/contest.standings?apiKey=${secrets_1.SECRETS.CF_API_KEY}&contestId=${settings_1._ST.CID}&count=${settings_1._ST.MXSTD}&from=1&showUnofficial=false`;
+    const response = yield get(auth_req(base_req));
+    const users = response.result.rows.map((usrjson) => {
+        var _a;
+        return {
+            handle: (_a = usrjson.party.teamName) !== null && _a !== void 0 ? _a : usrjson.party.members[0].handle,
+            points: usrjson.penalty ? usrjson.penalty : usrjson.points,
+            problem_results: usrjson.problemResults.map((prjson) => {
+                return {
+                    time: prjson.bestSubmissionTimeSeconds !== undefined ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
+                    fails: prjson.rejectedAttemptCount,
+                };
+            }),
+        };
+    });
+    res.render("standings", {
+        users,
+        problems: Object.keys(settings_1._ST.PCS).map((key) => {
+            return {
+                code: key,
+                color: settings_1._ST.PCS[key],
+            };
+        }),
+        problem_count: Object.keys(settings_1._ST.PCS).length,
+        reload_interval: settings_1._ST.STRIMS,
+        ac_color: settings_1._ST.ACC,
+        rj_color: settings_1._ST.RJC,
+        helpers: {
+            // not just passed as option bc i felt like it
+            getColWidth(problem_count) {
+                console.log(problem_count);
+                return `${50 / problem_count}%`;
+            },
+        },
+    });
+}));
 app.listen(PORT, () => {
-    console.log("Server listening on port", PORT);
+    console.log(`Server listening at:
+:. http://localhost:${PORT}/status
+:. http://localhost:${PORT}/standings`);
 });
