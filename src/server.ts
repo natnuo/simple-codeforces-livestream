@@ -5,8 +5,6 @@ import path from "node:path";
 import { sha512 } from 'js-sha512';
 import { SECRETS } from "./secrets";
 
-const PORT = 3000;
-
 const app = express();
 
 const hbs = create({
@@ -139,8 +137,8 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(_ST.PORT, () => {
   console.log(`Server listening at:
-:. http://localhost:${PORT}/status
-:. http://localhost:${PORT}/standings`);
+:. http://localhost:${_ST.PORT}/status
+:. http://localhost:${_ST.PORT}/standings`);
 });

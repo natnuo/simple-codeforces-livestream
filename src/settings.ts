@@ -23,6 +23,8 @@ const SETTINGS = {
 
   STATUS_PATH: "/status",
   STANDINGS_PATH: "/standings",
+
+  PORT: 3000,
 };
 
 export const _ST = {
@@ -41,4 +43,6 @@ export const _ST = {
 
   STATUS_PATH: SETTINGS.STATUS_PATH,
   STANDINGS_PATH: SETTINGS.STANDINGS_PATH,
+
+  PORT: SETTINGS.PORT,
 };
