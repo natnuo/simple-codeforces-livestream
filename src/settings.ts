@@ -27,6 +27,35 @@ const SETTINGS = {
   PORT: 3000,
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const _ST = {
   CID: SETTINGS.CONTEST_ID,
   PCS: SETTINGS.PROBLEM_COLORS as {[key: string]: string},
