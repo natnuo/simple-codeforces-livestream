@@ -1,5 +1,5 @@
 <div align="center">
-<h1>Easy Codeforces Livestream</h1>
+<h1>Simple Codeforces Livestream</h1>
 
 A simple-to-install, live-updating "submissions" and "standings" display for your Codeforces contest live streams. Gyms, mashups, and team contests are supported.
 
