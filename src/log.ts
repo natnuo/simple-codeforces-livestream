@@ -26,4 +26,4 @@ ${vr("", process.stdout.rows)}
 ${priemp1("Si")}mple ${priemp1("Co")}deforces ${priemp1("Li")}vestream
 ${chalk.dim("By Nathan Tao (https://github.com/natnuo)")}
 
-${vr("", 5)}`
+${vr("", 3)}`
