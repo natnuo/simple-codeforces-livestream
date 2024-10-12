@@ -1,9 +1,11 @@
 import express from "express";
 import { create, engine } from 'express-handlebars';
-import { _ST } from "./settings";
+import { _ST } from "./sttransfer";
 import path from "node:path";
 import { sha512 } from 'js-sha512';
 import { SECRETS } from "./secrets";
+import chalk from "chalk";
+import { _CLSCH, error, header, log } from "./log";
 
 const app = express();
 
@@ -66,7 +68,7 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
           verdict = "ILE";
           break;
         default:
-          console.error(`UNKNOWN VERDICT: ${subjson.verdict}`);
+          error(`UNKNOWN VERDICT: ${subjson.verdict}`);
           verdict = "F";
           break;
       }
@@ -87,7 +89,7 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
       tt_color: _ST.TTC,
     });
   } catch (e) {
-    console.error(e);
+    error(e);
     res.redirect(_ST.STATUS_PATH);
   }
 });
@@ -126,19 +128,28 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
       helpers: {
         // not just passed as option bc i felt like it
         getColWidth(problem_count: number) {
-          console.log(problem_count);
+          log(problem_count);
           return `${50/problem_count}%`;
         },
       },
     });
   } catch (e) {
-    console.error(e);
+    error(e);
     res.redirect(_ST.STANDINGS_PATH);
   }
 });
 
+
+
 app.listen(_ST.PORT, () => {
-  console.log(`Server listening at:
+  log(`
+${header}
+
+
+${chalk.bold("Server listening at:")}
 :. http://localhost:${_ST.PORT}/status
-:. http://localhost:${_ST.PORT}/standings`);
+:. http://localhost:${_ST.PORT}/standings
+
+Execute ${chalk.hex(_CLSCH.secondary)("npm run setup")} to edit SICOLI settings.
+  `);
 });
