@@ -3,7 +3,7 @@
 
 An easy-to-install, live-updating "submissions" and "standings" display for your Codeforces contest live streams. Gyms, mashups, and team contests are supported.
 
-<img width="25%" src="https://github.com/user-attachments/assets/c787488e-7990-4f33-ada2-3e02330c5b91" alt="submissions page"></img>
+<img width="25%" src="https://github.com/user-attachments/assets/a1b7d767-395c-4303-a1c4-624f7552e605" alt="submissions page"></img>
 <img width="68%" src="https://github.com/user-attachments/assets/cc363763-e3d3-4fdb-b4b0-273536b137d1" alt="standings page"></img>
 
 </div>
