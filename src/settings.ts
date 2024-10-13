@@ -19,4 +19,4 @@ export let SETTINGS = {
   "QUEUE_PATH": "/queue",
   "STANDINGS_PATH": "/standings",
   "PORT": 3000
-}
+};
