@@ -10,7 +10,7 @@ const save = async () => {
 
 const process_color = (hex: string) => {
   if (hex[0] === '#') hex = hex.substring(1);
-  if (hex.length === 3 || hex.length === 4) hex += hex;
+  if (hex.length < 6 && hex.length > 2) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
   if (hex.length > 6) hex = hex.substring(0, 6);
   return "#" + hex.toLowerCase();
 };
