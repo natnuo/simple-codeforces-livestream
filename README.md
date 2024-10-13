@@ -70,7 +70,6 @@ Each time you want to display a different contest, you can
 
 Simple as that.
 
-
-
 Please create an issue in this GitHub repository for bug reports.
 
+Thank you to Mike Mirzayanov for the great Codeforces platform.
