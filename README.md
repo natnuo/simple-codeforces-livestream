@@ -34,7 +34,7 @@ After adding the variables, restart your terminal if it is currently open.
 
 <h3>Editing Settings</h3>
 
-Open a terminal at the repository's root. Execute <code>npm install</code> and <code>npm run setup</code>.
+Open a terminal at the repository's root. Execute <code>npm install</code> and <code>npm run setup -y</code>.
 
 Main features must be edited every time you change the contest you wish to livestream. Open the main features now.
 
