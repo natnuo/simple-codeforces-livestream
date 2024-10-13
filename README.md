@@ -44,6 +44,8 @@ For the "Problem List" setting, list each problem's code (e.g. <code>"A"</code>,
 
 If you are using <code>localhost:3000</code> for another program, you may change the port our software uses by editing the <code>PORT</code> setting under the Functional Features.
 
+PLEASE SAVE YOUR SETTINGS BEFORE EXITING THE SETUP SCRIPT.
+
 <h3>Building and Starting the Server</h3>
 
 Next, run <code>npm start</code>. The program must be running each time you wish to run a livestream with SICOLI.
