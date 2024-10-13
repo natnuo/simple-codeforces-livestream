@@ -40,7 +40,7 @@ Main features must be edited every time you change the contest you wish to lives
 
 The Contest ID can be found in the URL of the contest page. For example, the contest: <a href="https://codeforces.com/contest/2013">https://codeforces.com/contest/2013</a> has a Contest ID of <code>2013</code>, and the gym <a href="https://codeforces.com/gym/105404">https://codeforces.com/gym/105404</a> has a Contest ID of <code>105404</code>. Mashup Contest ID values can be found similarly to that of gyms.
 
-For the "Problem List" setting, list each problem's code (e.g. <code>"A"</code>, <code>"C"</code>, <code>"F2"</code>), along with the HEX color code you want to associate with that problem. The keys in "Problem List" must exactly match the problems in the chosen contest or the livestream will not display correctly.
+For the "Problem List" setting, list each problem's code (e.g. <code>"A"</code>, <code>"C"</code>, <code>"F2"</code>), along with the HEX color code you want to associate with that problem. The keys in "Problem List" must exactly match the problems in the chosen contest or the livestream will not display correctly. Your input must match the format of the default value.
 
 If you are using <code>localhost:3000</code> for another program, you may change the port our software uses by editing the <code>PORT</code> setting under the Functional Features.
 
