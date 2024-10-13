@@ -34,7 +34,7 @@ After adding the variables, restart your terminal if it is currently open.
 
 <h3>Editing Settings</h3>
 
-Open a terminal at the repository's root. Execute <code>npm run setup</code>.
+Open a terminal at the repository's root. Execute <code>npm install</code> and <code>npm run setup</code>.
 
 Main features must be edited every time you change the contest you wish to livestream. Open the main features now.
 
@@ -45,8 +45,6 @@ For the "Problem List" setting, list each problem's code (e.g. <code>"A"</code>,
 If you are using <code>localhost:3000</code> for another program, you may change the port our software uses by editing the <code>PORT</code> setting under the Functional Features.
 
 <h3>Building and Starting the Server</h3>
-
-At the root of the repository, run <code>npm install</code>.
 
 Next, run <code>npm start</code>. The program must be running each time you wish to run a livestream with SICOLI.
 
