@@ -73,3 +73,5 @@ Simple as that.
 Please create an issue in this GitHub repository for bug reports.
 
 Thank you to Mike Mirzayanov for the great Codeforces platform.
+
+Note: Codeforces has banned the use of their API during official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
