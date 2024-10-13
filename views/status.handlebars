@@ -4,7 +4,7 @@
   </div>
   {{#each submissions}}
     <div class="d-flex flex-nowrap align-items-center">
-      <div class="p-2 fw-semibold text-center border-start border-1" style="width: 2rem; border-color: {{problem_color}}!important; background-color: {{problem_color}}69;">{{problem_code}}</div>
+      <div class="p-2 fw-semibold border-start border-1 d-flex align-items-center justify-content-center" style="width: 2rem; border-color: {{problem_color}}!important; background-color: {{problem_color}}69;">{{problem_code}}</div>
       <div class="text-truncate p-2" style="flex: 1;">{{author}}</div>
       <div class="fw-semibold text-center border-end border-1 p-2" style="width: 4rem; border-color:
         {{#ifEquals verdict "AC"}}{{../ac_color}}

@@ -1,13 +1,13 @@
 export let SETTINGS = {
-  "CONTEST_ID": 2013,
+  "CONTEST_ID": 105390,
   "PROBLEM_COLORS": {
-    "A": "#FF8B00",
-    "B": "#FFF500",
-    "C": "#00FF75",
-    "D": "#000AFF",
-    "E": "#FF008A",
-    "F1": "#DDDDDD",
-    "F2": "#DDDDDD"
+    "A": "#F80F80",
+    "B": "#F08F08",
+    "C1": "#8F08F0",
+    "C2": "#8F08F0",
+    "D": "#0f80f8",
+    "E": "#8800FF",
+    "F": "#0088FF"
   },
   "ACCEPTED_COLOR": "#198754",
   "TESTING_COLOR": "#cfcd30",

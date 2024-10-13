@@ -67,6 +67,9 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
         case "IDLENESS_LIMIT_EXCEEDED":
           verdict = "ILE";
           break;
+        case "MEMORY_LIMIT_EXCEEDED":
+          verdict = "MLE";
+          break;
         default:
           error(`UNKNOWN VERDICT: ${subjson.verdict}`);
           verdict = "F";
@@ -147,8 +150,8 @@ ${header}
 
 
 ${chalk.bold("Server listening at:")}
-:. http://localhost:${_ST.PORT}/${_ST.STATUS_PATH}
-:. http://localhost:${_ST.PORT}/${_ST.STANDINGS_PATH}
+:. http://localhost:${_ST.PORT}${_ST.STATUS_PATH}
+:. http://localhost:${_ST.PORT}${_ST.STANDINGS_PATH}
 
 Execute ${chalk.hex(_CLSCH.secondary).bold("npm run setup")} to edit SICOLI settings.
   `);
