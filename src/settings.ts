@@ -1,13 +1,13 @@
 export let SETTINGS = {
-  "CONTEST_ID": 105390,
+  "CONTEST_ID": 2022,
   "PROBLEM_COLORS": {
     "A": "#ff8800",
     "B": "#ff0088",
-    "C1": "#88ff00",
-    "C2": "#88ff00",
-    "D": "#00ff88",
-    "E": "#8800ff",
-    "F": "#0088ff"
+    "C": "#88ff00",
+    "D1": "#00ff88",
+    "D2": "#00ff88",
+    "E1": "#8800ff",
+    "E2": "#8800ff"
   },
   "ACCEPTED_COLOR": "#198754",
   "TESTING_COLOR": "#cfcd30",
@@ -19,4 +19,4 @@ export let SETTINGS = {
   "QUEUE_PATH": "/queue",
   "STANDINGS_PATH": "/standings",
   "PORT": 3000
-};
+}

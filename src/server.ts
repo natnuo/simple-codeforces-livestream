@@ -70,6 +70,9 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
         case "MEMORY_LIMIT_EXCEEDED":
           verdict = "MLE";
           break;
+        case undefined:
+          verdict = "F";
+          break;
         default:
           error(`UNKNOWN VERDICT: ${subjson.verdict}`);
           verdict = "F";
