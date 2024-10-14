@@ -61,6 +61,7 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
         case "RUNTIME_ERROR":
           verdict = "RTE";
           break;
+        case undefined:
         case "TESTING":
           verdict = "...";
           break;
@@ -69,9 +70,6 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
           break;
         case "MEMORY_LIMIT_EXCEEDED":
           verdict = "MLE";
-          break;
-        case undefined:
-          verdict = "F";
           break;
         default:
           error(`UNKNOWN VERDICT: ${subjson.verdict}`);
