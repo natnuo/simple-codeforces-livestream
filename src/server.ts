@@ -37,6 +37,10 @@ const get = async (endpoint: string) => {
   return response;
 };
 
+const is_frozen = (time_s: number) => {
+  return _ST.FZ != -1 && time_s >= _ST.FZ;
+};
+
 app.get(_ST.STATUS_PATH, async (req, res) => {
   try {
     const base_req = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSMD}&from=1`;
@@ -71,6 +75,33 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
         case "MEMORY_LIMIT_EXCEEDED":
           verdict = "MLE";
           break;
+        case "FAILED":
+          verdict = "F";
+          break;
+        case "PARTIAL":
+          verdict = "P";
+          break;
+        case "PRESENTATION_ERROR":
+          verdict = "PE";
+          break;
+        case "SECURITY_VIOLATED":
+          verdict = "SV";
+          break;
+        case "CRASHED":
+          verdict = "X";
+          break;
+        case "INPUT_PREPARATION_CRASHED":
+          verdict = "IX";
+          break;
+        case "CHALLENGED":
+          verdict = "CHD";
+          break;
+        case "SKIPPED":
+          verdict = "SKP";
+          break;
+        case "REJECTED":
+          verdict = "F";
+          break;
         default:
           error(`UNKNOWN VERDICT: ${subjson.verdict}`);
           verdict = "F";
@@ -80,7 +111,7 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
       return {
         problem_code: subjson.problem.index,
         problem_color: _ST.PCS[subjson.problem.index],
-        verdict,
+        verdict: is_frozen(subjson.relativeTimeSeconds) ? "?" : verdict,
         author: subjson.author.teamName ?? subjson.author.members[0].handle,
       };
     });
@@ -91,6 +122,7 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
       ac_color: _ST.ACC,
       rj_color: _ST.RJC,
       tt_color: _ST.TTC,
+      fz_color: _ST.FZC,
     });
   } catch (e) {
     error(e);
@@ -101,7 +133,6 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
 app.get(_ST.STANDINGS_PATH, async (req, res) => {
   try {
     const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=false`;
-  
     const response = await get(auth_req(base_req));
   
     const users = response.result.rows.map((usrjson: any) => {
@@ -110,8 +141,9 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
         points: usrjson.penalty ? usrjson.penalty : usrjson.points,
         problem_results: usrjson.problemResults.map((prjson: any) => {
           return {
-            time: prjson.bestSubmissionTimeSeconds !== undefined ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
+            time: (prjson.bestSubmissionTimeSeconds !== undefined && !is_frozen(prjson.bestSubmissionTimeSeconds)) ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
             fails: prjson.rejectedAttemptCount,
+            frozen: is_frozen(prjson.bestSubmissionTimeSeconds ?? (prjson.rejectedAttemptCount ? Infinity : false))
           };
         }),
       };
@@ -129,6 +161,7 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
       reload_interval: _ST.STRIMS,
       ac_color: _ST.ACC,
       rj_color: _ST.RJC,
+      fz_color: _ST.FZC,
       helpers: {
         // not just passed as option bc i felt like it
         getColWidth(problem_count: number) {

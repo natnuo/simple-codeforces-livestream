@@ -6,17 +6,22 @@
     <div class="d-flex flex-nowrap align-items-center">
       <div class="p-2 fw-semibold border-start border-1 d-flex align-items-center justify-content-center" style="width: 2rem; border-color: {{problem_color}}!important; background-color: {{problem_color}}69;">{{problem_code}}</div>
       <div class="text-truncate p-2" style="flex: 1;">{{author}}</div>
-      <div class="fw-semibold text-center border-end border-1 p-2" style="width: 4rem; border-color:
+      <div class="fw-semibold text-center border-end border-1 p-2" style="width: 4rem;
+
+        border-color:
         {{#ifEquals verdict "AC"}}{{../ac_color}}
-        {{else}}
-          {{#ifEquals verdict "..."}}{{../tt_color}}
-          {{else}}{{../rj_color}}{{/ifEquals}}
-        {{/ifEquals}}!important; background-color:
+        {{else}}{{#ifEquals verdict "..."}}{{../tt_color}}
+        {{else}}{{#ifEquals verdict "?"}}{{../fz_color}}
+        {{else}}{{../rj_color}}
+        {{/ifEquals}}{{/ifEquals}}{{/ifEquals}}!important;
+        
+        background-color:
         {{#ifEquals verdict "AC"}}{{../ac_color}}38
-        {{else}}
-          {{#ifEquals verdict "..."}}{{../tt_color}}38
-          {{else}}{{../rj_color}}38{{/ifEquals}}
-        {{/ifEquals}}!important;
+        {{else}}{{#ifEquals verdict "..."}}{{../tt_color}}38
+        {{else}}{{#ifEquals verdict "?"}}{{../fz_color}}38
+        {{else}}{{../rj_color}}38
+        {{/ifEquals}}{{/ifEquals}}{{/ifEquals}}!important;
+
       ">{{verdict}}</div>
     </div>
   {{/each}}

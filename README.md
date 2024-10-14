@@ -44,6 +44,8 @@ For the "Problem List" setting, list each problem's code (e.g. <code>"A"</code>,
 
 If you are using <code>localhost:3000</code> for another program, you may change the port our software uses by editing the <code>PORT</code> setting under the Functional Features.
 
+For the settings about "reload times", do NOT reload more than once every two seconds, or you will recieve errors.
+
 PLEASE SAVE YOUR SETTINGS BEFORE EXITING THE SETUP SCRIPT.
 
 <h3>Building and Starting the Server</h3>
