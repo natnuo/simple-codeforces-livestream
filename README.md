@@ -22,6 +22,8 @@ Clone this repository:
 
 <pre>git clone https://github.com/natnuo/easy-codeforces-livestream.git</pre>
 
+Alternatively, download and extract the zip from our <a href="https://github.com/natnuo/simple-codeforces-livestream/releases/tag/v1.0.0">releases</a>.
+
 <h3>Linking the Codeforces API Key (and Secret)</h3>
 
 You need to add your Codeforces API Key and Secret as environment variables. In Windows, this can be done by searching in the taskbar for <i>"Edit the system environment variables"</i>, clicking <i>"Environment Variables..."</i>, then 
@@ -34,7 +36,7 @@ After adding the variables, restart your terminal if it is currently open.
 
 <h3>Editing Settings</h3>
 
-Open a terminal at the repository's root. Execute <code>npm install</code> and <code>npm run setup</code>.
+Open a terminal at the repository's root (or the extracted folder's root, if you chose to download the zip). Execute <code>npm install</code> and <code>npm run setup</code>.
 
 Main features must be edited every time you change the contest you wish to livestream. Open the main features now.
 
