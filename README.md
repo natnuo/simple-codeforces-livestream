@@ -1,5 +1,6 @@
 <div align="center">
-<h1>Simple Codeforces Livestream</h1>
+<h1>TLE Live</h1>
+<b>Simple Codeforces Livestream</b>
 
 An easy-to-install, live-updating "submissions" and "standings" display for your Codeforces contest live streams. Gyms, mashups, and team contests are supported.
 
@@ -8,15 +9,15 @@ An easy-to-install, live-updating "submissions" and "standings" display for your
 
 </div>
 
-<h2>Installation & Setup</h2>
+<h2>Installation & Setup 🛠️</h2>
 
 Time to complete: ~5 minutes
 
-<h3>Obtaining a Codeforces API Key</h3>
+<h3>Obtaining a Codeforces API Key 🔑</h3>
 
 Navigate to <a href="https://codeforces.com/settings/api">https://codeforces.com/settings/api</a> and add a new Codeforces API Key. Save the key and the secret.
 
-<h3>Obtaining the Software</h3>
+<h3>Obtaining the Software 💻</h3>
 
 Clone this repository:
 
@@ -24,7 +25,7 @@ Clone this repository:
 
 Alternatively, download and extract the zip from our <a href="https://github.com/natnuo/simple-codeforces-livestream/releases/tag/v1.0.0">releases</a>.
 
-<h3>Linking the Codeforces API Key (and Secret)</h3>
+<h3>Linking the Codeforces API Key (and Secret) 🔗</h3>
 
 You need to add your Codeforces API Key and Secret as environment variables. In Windows, this can be done by searching in the taskbar for <i>"Edit the system environment variables"</i>, clicking <i>"Environment Variables..."</i>, then 
 adding new user variables (there are ways described online to add environment variables on other operating systems as well). You need to add the following values:
@@ -34,7 +35,7 @@ adding new user variables (there are ways described online to add environment va
 
 After adding the variables, restart your terminal if it is currently open.
 
-<h3>Editing Settings</h3>
+<h3>Editing Settings ⚙️</h3>
 
 Open a terminal at the repository's root (or the extracted folder's root, if you chose to download the zip). Execute <code>npm install</code> and <code>npm run setup</code>.
 
@@ -50,11 +51,11 @@ For the settings about "reload times", do NOT reload more than once every two se
 
 PLEASE SAVE YOUR SETTINGS BEFORE EXITING THE SETUP SCRIPT.
 
-<h3>Building and Starting the Server</h3>
+<h3>Building and Starting the Server 🎬</h3>
 
 Next, run <code>npm start</code>. The program must be running each time you wish to run a livestream with SICOLI.
 
-<h3>Connecting to your Livestream</h3>
+<h3>Connecting to your Livestream ⭐</h3>
 
 For the purposes of this tutorial, I will use OBS Studio for live streaming.
 
@@ -78,4 +79,4 @@ Please create an issue in this GitHub repository for bug reports.
 
 Thank you to Mike Mirzayanov for the great Codeforces platform.
 
-Note: Codeforces has banned the use of their API during official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
+Note: Codeforces has banned the use of their API during some official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
