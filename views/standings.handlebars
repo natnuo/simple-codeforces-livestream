@@ -14,6 +14,11 @@
       <div class="p-1 text-truncate" style="flex: 2;">{{handle}}</div>
       <div class="p-1 text-center" style="width: 4rem;">{{points}}</div>
       {{#each problem_results}}
+          {{#ifEquals frozen true}}
+            <div class="p-1 d-flex rounded align-items-center justify-content-center" style="flex: 1;background-color: {{../../fz_color}}28;">
+              <div class="fw-bold" style="color: {{../../fz_color}};">?</div>
+            </div>
+          {{else}}
           {{#ifEquals time "-1"}}
             {{#ifEquals fails 0}}
               <div class="p-1" style="flex: 1;"></div>
@@ -29,6 +34,7 @@
               </div>
               <div style="font-size: 0.8rem;">{{time}}</div>
             </div>
+          {{/ifEquals}}
           {{/ifEquals}}
       {{/each}}
     </div>
