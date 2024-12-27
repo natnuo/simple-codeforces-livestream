@@ -147,8 +147,8 @@ ${header}
 
 
 ${chalk.bold("Server listening at:")}
-:. http://localhost:${_ST.PORT}/${_ST.STATUS_PATH}
-:. http://localhost:${_ST.PORT}/${_ST.STANDINGS_PATH}
+:. http://localhost:${_ST.PORT}${_ST.STATUS_PATH}
+:. http://localhost:${_ST.PORT}${_ST.STANDINGS_PATH}
 
 Execute ${chalk.hex(_CLSCH.secondary).bold("npm run setup")} to edit SICOLI settings.
   `);
