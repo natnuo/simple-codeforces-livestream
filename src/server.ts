@@ -43,10 +43,13 @@ const is_frozen = (time_s: number) => {
 
 app.get(_ST.STATUS_PATH, async (req, res) => {
   try {
+    const base_req_manager = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&asManager=${true}&contestId=${_ST.CID}&count=${_ST.MXSMD}&from=1`;
     const base_req = `/contest.status?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSMD}&from=1`;
   
-    const response = await get(auth_req(base_req));
-  
+    let response = await get(auth_req(base_req_manager));
+
+    if (response.status === "FAILED") response = await get(auth_req(base_req));
+    
     const submissions = response.result.map((subjson: any) => {
       let verdict;
       switch (subjson.verdict) {
@@ -132,8 +135,11 @@ app.get(_ST.STATUS_PATH, async (req, res) => {
 
 app.get(_ST.STANDINGS_PATH, async (req, res) => {
   try {
-    const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=false`;
-    const response = await get(auth_req(base_req));
+    const base_req_manager = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&asManager=${true}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=${_ST.SUO.toUpperCase() === "Y"}`;
+    const base_req = `/contest.standings?apiKey=${SECRETS.CF_API_KEY}&contestId=${_ST.CID}&count=${_ST.MXSTD}&from=1&showUnofficial=${_ST.SUO.toUpperCase() === "Y"}`;
+    
+    let response = await get(auth_req(base_req_manager));
+    if (response.status === "FAILED") response = await get(auth_req(base_req));
   
     const users = response.result.rows.map((usrjson: any) => {
       return {

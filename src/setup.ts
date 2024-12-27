@@ -44,6 +44,9 @@ const edit = async (parent_page: string, option: string) => {
     case "FZ":
       SETTINGS.FREEZEAT_SECONDS = parseInt(await input({ message: `Freeze at how many seconds (-1 = never freeze, current: ${SETTINGS.FREEZEAT_SECONDS})?`, default: SETTINGS.FREEZEAT_SECONDS.toString() }));
       break;
+    case "SUO":
+      SETTINGS.SHOW_UNOFFICIAL = (await input({ message: `Edit whether to show unofficial submissions in standings (current: ${SETTINGS.SHOW_UNOFFICIAL}):`, default: SETTINGS.SHOW_UNOFFICIAL })).toUpperCase() === "Y" ? "Y" : "N";
+      break;
     case "MXSMD":
       SETTINGS.MAX_SUBMISSIONS_DISPLAYED = parseInt(await input({ message: `Edit maximum submissions displayed in the queue page (current: ${SETTINGS.MAX_SUBMISSIONS_DISPLAYED}):`, default: SETTINGS.MAX_STANDINGS_DISPLAYED.toString() }));
       break;
@@ -108,6 +111,7 @@ const options = async (page: string) => {
           { name: "Edit Rejection Color", value: "RJC" },
           { name: "Edit Frozen Color", value: "FZC" },
           { name: "Edit Freeze Time", value: "FZ" },
+          { name: "Edit Unofficial Submissions Displayed", value: "SUO" },
           { name: "Edit [Queue] Submissions Displayed", value: "MXSMD" },
           { name: "Edit [Standings] Standings Displayed", value: "MXSTD" },
         ],
