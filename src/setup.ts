@@ -29,6 +29,12 @@ const edit = async (parent_page: string, option: string) => {
       }
 
       break;
+    case "PPS":
+      SETTINGS.PROBLEM_POINTS = (await input({ message: `Edit the points attributed to each problem (current: ${JSON.stringify(SETTINGS.PROBLEM_POINTS)}):`, default: JSON.stringify(SETTINGS.PROBLEM_POINTS) })).replace(/\[\]/g, "").split(/, */g).map(parseInt);
+      break;
+    case "CPV":
+      SETTINGS.SHOW_UNOFFICIAL = (await input({ message: `Edit whether problems should have custom point values (current: ${SETTINGS.CUSTOM_POINT_VALUES}):`, default: SETTINGS.CUSTOM_POINT_VALUES })).toUpperCase() === "Y" ? "Y" : "N";
+      break;
     case "ACC":
       SETTINGS.ACCEPTED_COLOR = process_color(await input({ message: `Edit the acceptance color (current: ${SETTINGS.ACCEPTED_COLOR}):`, default: SETTINGS.ACCEPTED_COLOR }));
       break;
@@ -97,6 +103,8 @@ const options = async (page: string) => {
           { name: "Back", value: "PG_HOME" },
           { name: "Edit Contest ID", value: "CID" },
           { name: "Edit Problem List", value: "PCS" },
+          { name: "Edit Point Distribution", value: "PPS" },
+          { name: "Edit Custom Point Distribution Used", value: "CPV" }
         ],
       });
       break;

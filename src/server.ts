@@ -151,9 +151,13 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
   
     const users = response.result.rows.map((usrjson: any) => {
       let points = 0;
-      for (let prjson of usrjson.problemResults) {
-        if (!is_frozen(prjson.bestSubmissionTimeSeconds))
-          points += prjson.penalty ?? prjson.points;
+      for (let ix = 0; ix < usrjson.problemResults.length; ix++) {
+        const prjson = usrjson.problemResults[ix];
+        if (!is_frozen(prjson.bestSubmissionTimeSeconds)) {
+          const pv = prjson.penalty ?? prjson.points;
+          if (pv > 0 && _ST.USE_PD === "Y") points += _ST.PD[ix];
+          else points += pv;
+        }
       }
 
       return {
@@ -171,9 +175,10 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
   
     res.render("standings", {
       users,
-      problems: Object.keys(_ST.PCS).map((key) => {
+      problems: Object.keys(_ST.PCS).map((key, ix) => {
         return {
           code: key,
+          problem_points: _ST.USE_PD === "Y" ? _ST.PD[ix].toString() : "",  // also, only integer vals in PD allowed
           color: _ST.PCS[key],
         };
       }),

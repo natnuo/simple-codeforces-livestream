@@ -6,7 +6,13 @@
     <div class="p-1 text-truncate rounded border-bottom border-1" style="flex: 2; background-color: #fcfcfc; border-color: #e6e6e6!important;">Team</div>
     <div class="p-1 rounded border-bottom border-1 text-center" style="width: 4rem; background-color: #fcfcfc; border-color: #e6e6e6!important;">Points</div>
     {{#each problems}}
-      <div class="p-1 rounded border-bottom border-1 text-center" style="border-color: {{color}}!important;background-color: {{color}}69;flex: 1;">{{code}}</div>
+      <div class="p-1 rounded border-bottom border-1 text-center" style="border-color: {{color}}!important;background-color: {{color}}69;flex: 1;">
+        {{code}}
+        {{#ifEquals problem_points ""}}
+        {{else}}
+          <span class="ml-1 fw-light">({{problem_points}})</span>
+        {{/ifEquals}}
+      </div>
     {{/each}}
   </div>
   {{#each users}}
