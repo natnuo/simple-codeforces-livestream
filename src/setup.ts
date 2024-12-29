@@ -42,7 +42,7 @@ const edit = async (parent_page: string, option: string) => {
       SETTINGS.FROZEN_COLOR = process_color(await input({ message: `Edit the frozen color (current: ${SETTINGS.FROZEN_COLOR}):`, default: SETTINGS.FROZEN_COLOR }));
       break;
     case "FZ":
-      SETTINGS.FREEZEAT_SECONDS = parseInt(await input({ message: `Freeze at how many seconds (-1 = never freeze, current: ${SETTINGS.FREEZEAT_SECONDS})?`, default: SETTINGS.FREEZEAT_SECONDS.toString() }));
+      SETTINGS.FREEZEAT_SECONDS = parseInt(await input({ message: `Freeze at how many seconds from start (-1 = never freeze, current: ${SETTINGS.FREEZEAT_SECONDS})?`, default: SETTINGS.FREEZEAT_SECONDS.toString() }));
       break;
     case "SUO":
       SETTINGS.SHOW_UNOFFICIAL = (await input({ message: `Edit whether to show unofficial submissions in standings (current: ${SETTINGS.SHOW_UNOFFICIAL}):`, default: SETTINGS.SHOW_UNOFFICIAL })).toUpperCase() === "Y" ? "Y" : "N";
