@@ -27,4 +27,7 @@
   {{/each}}
 </div>
 
+{{#ifEquals reload_interval -1}}
+{{else}}
 <script>setTimeout(() => { window.location.reload(); }, {{reload_interval}});</script>
+{{/ifEquals}}
