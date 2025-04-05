@@ -1,5 +1,5 @@
 export let SETTINGS = {
-  "CONTEST_ID": 599440,
+  "CONTEST_ID": 601349,
   "PROBLEM_COLORS": {
     "A1": "#ccccff",
     "A2": "#ff8800",
@@ -12,18 +12,29 @@ export let SETTINGS = {
     "H": "#ff0000",
     "I": "#88ff88"
   },
-  "PROBLEM_POINTS": [50, 100, 50, 100, 100, 50, 50, 75, 150, 75],
+  "PROBLEM_POINTS": [
+    50,
+    100,
+    50,
+    100,
+    100,
+    50,
+    50,
+    75,
+    150,
+    75
+  ],
   "CUSTOM_POINT_VALUES": "Y",
   "ACCEPTED_COLOR": "#198754",
   "TESTING_COLOR": "#cfcd30",
   "REJECTED_COLOR": "#dc3545",
   "FROZEN_COLOR": "#1D1987",
-  "FREEZEAT_SECONDS": 3600,
+  "FREEZEAT_SECONDS": -1,
   "MAX_SUBMISSIONS_DISPLAYED": 17,
   "MAX_STANDINGS_DISPLAYED": 10,
   "QUEUE_RELOAD_INTERVAL_MS": 4000,
   "STANDINGS_RELOAD_INTERVAL_MS": 9000,
-  "SHOW_UNOFFICIAL": "Y",
+  "SHOW_UNOFFICIAL": "N",
   "QUEUE_PATH": "/queue",
   "STANDINGS_PATH": "/standings",
   "PORT": 3000

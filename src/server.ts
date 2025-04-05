@@ -182,10 +182,7 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
           return {
             time: (prjson.bestSubmissionTimeSeconds !== undefined && !is_frozen(prjson.bestSubmissionTimeSeconds)) ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
             fails: prjson.rejectedAttemptCount,
-            frozen: (_ST.FZ === -1) ? false : (
-              is_frozen(prjson.bestSubmissionTimeSeconds) ||
-              (prjson.rejectedAttemptCount && is_frozen(response.result.contest.relativeTimeSeconds))
-            )
+            frozen: _frozen
           };
         }),
       };
