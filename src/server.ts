@@ -149,6 +149,23 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
     // console.debug(response.result.rows[0].problemResults[0]);
     // console.debug(response.result.rows[0].problemResults[1]);
     // console.debug(response.result.rows[0].problemResults[2]);
+
+    const usrSort = (usr1: any, usr2: any) => {
+      if (usr1.points === usr2.points) {
+        let t1subs=0, t2subs=0;
+        for (let problem of usr1.problem_results) {
+          if (problem.time !== "-1" && !problem.frozen)
+            t1subs += problem.fails + 1;
+        }
+        for (let problem of usr2.problem_results) {
+          if (problem.time !== "-1" && !problem.frozen)
+            t2subs += problem.fails + 1;
+        }
+
+        return t1subs > t2subs;  // 1st tiebreaker: # of submissions
+      }
+      return usr1.points > usr2.points;  // rank most points to fewest points
+    };
   
     const users = response.result.rows.map((usrjson: any) => {
       let points = 0;
@@ -186,7 +203,7 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
           };
         }),
       };
-    });
+    }).sort(usrSort);
   
     res.render("standings", {
       users,
