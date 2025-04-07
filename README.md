@@ -2,7 +2,7 @@
 <h1>TLE Live</h1>
 <b>Simple Codeforces Livestream</b>
 
-<a href="https://www.youtube.com/live/abOuAZST9v8?t=1380">Featured in Scarsdale Informatics Competition, Winter 2025</a>
+<a href="https://www.youtube.com/live/abOuAZST9v8?t=1385">Featured in Scarsdale Informatics Competition, Winter 2025</a>
 
 An easy-to-install, live-updating "submissions" and "standings" display for your Codeforces contest live streams. Gyms, mashups, and team contests are supported.
 
