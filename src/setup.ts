@@ -29,6 +29,12 @@ const edit = async (parent_page: string, option: string) => {
       }
 
       break;
+    case "PPS":
+      SETTINGS.PROBLEM_POINTS = (await input({ message: `Edit the points attributed to each problem (current: ${JSON.stringify(SETTINGS.PROBLEM_POINTS)}):`, default: JSON.stringify(SETTINGS.PROBLEM_POINTS) })).replace(/\[\]/g, "").split(/, */g).map(parseInt);
+      break;
+    case "CPV":
+      SETTINGS.SHOW_UNOFFICIAL = (await input({ message: `Edit whether problems should have custom point values (current: ${SETTINGS.CUSTOM_POINT_VALUES}):`, default: SETTINGS.CUSTOM_POINT_VALUES })).toUpperCase() === "Y" ? "Y" : "N";
+      break;
     case "ACC":
       SETTINGS.ACCEPTED_COLOR = process_color(await input({ message: `Edit the acceptance color (current: ${SETTINGS.ACCEPTED_COLOR}):`, default: SETTINGS.ACCEPTED_COLOR }));
       break;
@@ -54,10 +60,10 @@ const edit = async (parent_page: string, option: string) => {
       SETTINGS.MAX_STANDINGS_DISPLAYED = parseInt(await input({ message: `Edit maximum standings displayed in the standings page (current: ${SETTINGS.MAX_STANDINGS_DISPLAYED}):`, default: SETTINGS.MAX_STANDINGS_DISPLAYED.toString() }));
       break;
     case "STRIMS":
-      SETTINGS.QUEUE_RELOAD_INTERVAL_MS = parseInt(await input({ message: `Edit the queue page refresh interval (milliseconds) (current: ${SETTINGS.QUEUE_RELOAD_INTERVAL_MS}ms):`, default: SETTINGS.QUEUE_RELOAD_INTERVAL_MS.toString() }));
+      SETTINGS.QUEUE_RELOAD_INTERVAL_MS = parseInt(await input({ message: `Edit the queue page refresh interval (milliseconds), -1 causes no refresh (current: ${SETTINGS.QUEUE_RELOAD_INTERVAL_MS}ms):`, default: SETTINGS.QUEUE_RELOAD_INTERVAL_MS.toString() }));
       break;
     case "SNRIMS":
-      SETTINGS.STANDINGS_RELOAD_INTERVAL_MS = parseInt(await input({ message: `Edit the queue page refresh interval (milliseconds) (current: ${SETTINGS.STANDINGS_RELOAD_INTERVAL_MS}ms):`, default: SETTINGS.STANDINGS_RELOAD_INTERVAL_MS.toString() }));
+      SETTINGS.STANDINGS_RELOAD_INTERVAL_MS = parseInt(await input({ message: `Edit the queue page refresh interval (milliseconds), -1 causes no refresh (current: ${SETTINGS.STANDINGS_RELOAD_INTERVAL_MS}ms):`, default: SETTINGS.STANDINGS_RELOAD_INTERVAL_MS.toString() }));
       break;
     case "STATUS_PATH":
       SETTINGS.QUEUE_PATH = await input({ message: `Edit the queue page subpath (current: ${SETTINGS.QUEUE_PATH}):`, default: SETTINGS.QUEUE_PATH });
@@ -97,6 +103,8 @@ const options = async (page: string) => {
           { name: "Back", value: "PG_HOME" },
           { name: "Edit Contest ID", value: "CID" },
           { name: "Edit Problem List", value: "PCS" },
+          { name: "Edit Point Distribution", value: "PPS" },
+          { name: "Edit Custom Point Distribution Used", value: "CPV" }
         ],
       });
       break;

@@ -39,7 +39,8 @@ const get = async (endpoint: string) => {
   return response;
 };
 
-const is_frozen = (time_s: number) => {
+const is_frozen = (time_s: number | undefined) => {
+  if (!time_s) return false;
   return _ST.FZ != -1 && time_s >= _ST.FZ;
 };
 
@@ -148,32 +149,68 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
     // console.debug(response.result.rows[0].problemResults[0]);
     // console.debug(response.result.rows[0].problemResults[1]);
     // console.debug(response.result.rows[0].problemResults[2]);
+
+    const usrSort = (usr1: any, usr2: any) => {
+      if (usr1.points === usr2.points) {
+        let t1subs=0, t2subs=0;
+        for (let problem of usr1.problem_results) {
+          if (problem.time !== "-1" && !problem.frozen)
+            t1subs += problem.fails + 1;
+        }
+        for (let problem of usr2.problem_results) {
+          if (problem.time !== "-1" && !problem.frozen)
+            t2subs += problem.fails + 1;
+        }
+
+        return t1subs > t2subs;  // 1st tiebreaker: # of submissions
+      }
+      return usr1.points > usr2.points;  // rank most points to fewest points
+    };
   
     const users = response.result.rows.map((usrjson: any) => {
       let points = 0;
-      for (let prjson of usrjson.problemResults) {
-        if (!is_frozen(prjson.bestSubmissionTimeSeconds))
-          points += prjson.penalty ?? prjson.points;
+      for (let ix = 0; ix < usrjson.problemResults.length; ix++) {
+        const prjson = usrjson.problemResults[ix];
+        if (!is_frozen(prjson.bestSubmissionTimeSeconds)) {
+          const pv = prjson.penalty ?? prjson.points;
+          if (pv > 0 && _ST.USE_PD === "Y") points += _ST.PD[ix];
+          else points += pv;
+        }
       }
 
       return {
         handle: usrjson.party.teamName ?? usrjson.party.members[0].handle,
         points,
         problem_results: usrjson.problemResults.map((prjson: any) => {
+          let _frozen = false;
+          if (_ST.FZ !== -1) {
+            if (prjson.bestSubmissionTimeSeconds) {
+              // correct or point scoring submission exists
+              // show that submission if it happened before freeze
+              // i think slight problem with variable point scoring but whatev
+              _frozen = is_frozen(prjson.bestSubmissionTimeSeconds);
+            } else if (prjson.rejectedAttemptCount) {
+              // no correct or point scoring submission exists, but submissions exist
+              // display frozen if time of contest is after freeze time
+              _frozen = is_frozen(response.result.contest.relativeTimeSeconds);
+            }
+          }
+
           return {
             time: (prjson.bestSubmissionTimeSeconds !== undefined && !is_frozen(prjson.bestSubmissionTimeSeconds)) ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
             fails: prjson.rejectedAttemptCount,
-            frozen: is_frozen(prjson.bestSubmissionTimeSeconds ?? (prjson.rejectedAttemptCount ? Infinity : false))
+            frozen: _frozen
           };
         }),
       };
-    });
+    }).sort(usrSort);
   
     res.render("standings", {
       users,
-      problems: Object.keys(_ST.PCS).map((key) => {
+      problems: Object.keys(_ST.PCS).map((key, ix) => {
         return {
           code: key,
+          problem_points: _ST.USE_PD === "Y" ? _ST.PD[ix].toString() : "",  // also, only integer vals in PD allowed
           color: _ST.PCS[key],
         };
       }),
