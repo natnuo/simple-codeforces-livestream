@@ -1,6 +1,6 @@
 <div align="center">
 <h1>TLE Live</h1>
-<b>Simple Codeforces Livestream</b>
+<b>A Simple Codeforces Livestream</b>
 
 An easy-to-install, live-updating "submissions" and "standings" display for your Codeforces contest live streams. Gyms, mashups, and team contests are supported.
 
@@ -21,7 +21,7 @@ Navigate to <a href="https://codeforces.com/settings/api">https://codeforces.com
 
 Clone this repository:
 
-<pre>git clone https://github.com/natnuo/easy-codeforces-livestream.git</pre>
+<pre>git clone https://github.com/natnuo/simple-codeforces-livestream.git</pre>
 
 Alternatively, download and extract the zip from our <a href="https://github.com/natnuo/simple-codeforces-livestream/releases/tag/v1.0.0">releases</a>.
 
@@ -53,7 +53,7 @@ PLEASE SAVE YOUR SETTINGS BEFORE EXITING THE SETUP SCRIPT.
 
 <h3>Building and Starting the Server 🎬</h3>
 
-Next, run <code>npm start</code>. The program must be running each time you wish to run a livestream with SICOLI.
+Next, run <code>npm start</code>. The program must be running each time you wish to run a livestream with TLE Live.
 
 <h3>Connecting to your Livestream ⭐</h3>
 

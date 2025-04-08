@@ -228,7 +228,7 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
       };
     }).sort(usrSort);
 
-    console.log(users);
+    // console.log(users);
   
     res.render("standings", {
       users,
@@ -269,6 +269,6 @@ ${chalk.bold("Server listening at:")}
 :. http://localhost:${_ST.PORT}${_ST.STATUS_PATH}
 :. http://localhost:${_ST.PORT}${_ST.STANDINGS_PATH}
 
-Execute ${chalk.hex(_CLSCH.secondary).bold("npm run setup")} to edit SICOLI settings.
+Execute ${chalk.hex(_CLSCH.secondary).bold("npm run setup")} to edit TLE Live settings.
   `);
 });
