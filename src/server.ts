@@ -151,7 +151,25 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
     // console.debug(response.result.rows[0].problemResults[2]);
 
     const usrSort = (usr1: any, usr2: any) => {
+      // console.log(usr1, usr2);
       if (usr1.points === usr2.points) {
+        if (_ST.USE_PD === "Y") {
+          let t1mpp=0, t2mpp=0;  // mpp = most points problem
+                                 // (highest value problem solved by team)
+  
+          for (let problem of usr1.problem_results) {
+            if (problem.time !== "-1" && !problem.frozen)
+              t1mpp = Math.max(t1mpp, _ST.PD[problem.ix]);
+          }
+          for (let problem of usr2.problem_results) {
+            if (problem.time !== "-1" && !problem.frozen)
+              t2mpp = Math.max(t2mpp, _ST.PD[problem.ix]);
+          }
+
+          // t1 has greater most points problem, then t1 goes first
+          if (t1mpp !== t2mpp) return t2mpp - t1mpp;  // tiebreaker: most points problem
+        }
+
         let t1subs=0, t2subs=0;
         for (let problem of usr1.problem_results) {
           if (problem.time !== "-1" && !problem.frozen)
@@ -162,9 +180,13 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
             t2subs += problem.fails + 1;
         }
 
-        return t1subs > t2subs;  // 1st tiebreaker: # of submissions
+        // when fewer subs better
+        // if t1 fewer subs then negative, so t1 first good
+        return t1subs - t2subs;  // tiebreaker: # of submissions
       }
-      return usr1.points > usr2.points;  // rank most points to fewest points
+      // negative then usr1 goes first
+      // negative when usr1 more points good
+      return usr2.points - usr1.points;  // rank most points to fewest points
     };
   
     const users = response.result.rows.map((usrjson: any) => {
@@ -181,7 +203,7 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
       return {
         handle: usrjson.party.teamName ?? usrjson.party.members[0].handle,
         points,
-        problem_results: usrjson.problemResults.map((prjson: any) => {
+        problem_results: usrjson.problemResults.map((prjson: any, ix: number) => {
           let _frozen = false;
           if (_ST.FZ !== -1) {
             if (prjson.bestSubmissionTimeSeconds) {
@@ -199,11 +221,14 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
           return {
             time: (prjson.bestSubmissionTimeSeconds !== undefined && !is_frozen(prjson.bestSubmissionTimeSeconds)) ? new Date(prjson.bestSubmissionTimeSeconds * 1000).toISOString().substring(11, 19) : "-1",
             fails: prjson.rejectedAttemptCount,
-            frozen: _frozen
+            frozen: _frozen,
+            ix
           };
         }),
       };
     }).sort(usrSort);
+
+    console.log(users);
   
     res.render("standings", {
       users,
