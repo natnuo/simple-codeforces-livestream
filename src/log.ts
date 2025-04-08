@@ -19,11 +19,13 @@ export const vr = (s: any, rows: number) => { return (s + "\n").repeat(rows / s.
 export const header = `${hr("-", process.stdout.columns)}
 ${vr("", process.stdout.rows)}
 
-┌─┐┬┌─┐┌─┐┬  ┬
-└─┐││  │ ││  │
-└─┘┴└─┘└─┘┴─┘┴
+${chalk.yellow("████████ ██      ███████")}     ██      ██ ██    ██ ███████ 
+${chalk.yellow("   ██    ██      ██     ")}     ██      ██ ██    ██ ██      
+${chalk.yellow("   ██    ██      █████  ")}     ██      ██ ██    ██ █████   
+${chalk.yellow("   ██    ██      ██     ")}     ██      ██  ██  ██  ██      
+${chalk.yellow("   ██    ███████ ███████")}     ███████ ██   ████   ███████ 
 
-${priemp1("Si")}mple ${priemp1("Co")}deforces ${priemp1("Li")}vestream
+a simple codeforces livestream
 ${chalk.dim("By Nathan Tao (https://github.com/natnuo)")}
 
-${vr("", 3)}`
+${vr("", 1)}`
