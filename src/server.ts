@@ -194,7 +194,7 @@ app.get(_ST.STANDINGS_PATH, async (req, res) => {
       for (let ix = 0; ix < usrjson.problemResults.length; ix++) {
         const prjson = usrjson.problemResults[ix];
         if (!is_frozen(prjson.bestSubmissionTimeSeconds)) {
-          const pv = prjson.penalty ?? prjson.points;
+          const pv = prjson.points ?? -prjson.penalty;
           if (pv > 0 && _ST.USE_PD === "Y") points += _ST.PD[ix];
           else points += pv;
         }
