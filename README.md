@@ -88,4 +88,4 @@ Thank you to Mike Mirzayanov for the great Codeforces platform.
 
 Note 1: Codeforces has banned the use of their API during some official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
 Note 2: Do not set your refresh times too low, as will overquery the Codeforces API and may result in your key being restricted.
-Note 3: IOI-style contests are untested and likely buggy.
+Note 3: IOI-style contests are untested and likely buggy. IOI or not, please test on a mock contest before using this software for important events.
