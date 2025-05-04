@@ -15,6 +15,11 @@ An easy-to-install, live-updating "submissions" and "standings" display for your
 
 Time to complete: ~5 minutes
 
+<h3>Prerequisites</h3>
+
+- Have Node.js (and NPM) installed
+- Have a Codeforces account (if you don't, then what are you doing here?)
+
 <h3>Obtaining a Codeforces API Key 🔑</h3>
 
 Navigate to <a href="https://codeforces.com/settings/api">https://codeforces.com/settings/api</a> and add a new Codeforces API Key. Save the key and the secret.
