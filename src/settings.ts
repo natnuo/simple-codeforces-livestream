@@ -1,16 +1,14 @@
 export let SETTINGS = {
-  "CONTEST_ID": 601349,
+  "CONTEST_ID": 171,
   "PROBLEM_COLORS": {
-    "A1": "#ccccff",
-    "A2": "#ff8800",
-    "B": "#ccccff",
-    "C": "#ffff33",
-    "D": "#ffff33",
-    "E": "#ccccff",
+    "A": "#ffadad",
+    "B": "#ffd6a5",
+    "C": "#fdffb6",
+    "D": "#caffbf",
+    "E": "#96e8ff",
     "F": "#ccccff",
-    "G": "#88ff88",
-    "H": "#ff0000",
-    "I": "#88ff88"
+    "G": "#a0c4ff",
+    "H": "#bdb2ff"
   },
   "PROBLEM_POINTS": [
     50,
@@ -21,10 +19,9 @@ export let SETTINGS = {
     50,
     50,
     75,
-    150,
-    75
+    150
   ],
-  "CUSTOM_POINT_VALUES": "Y",
+  "CUSTOM_POINT_VALUES": "N",
   "ACCEPTED_COLOR": "#198754",
   "TESTING_COLOR": "#cfcd30",
   "REJECTED_COLOR": "#dc3545",

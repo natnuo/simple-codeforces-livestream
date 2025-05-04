@@ -19,13 +19,8 @@ export const vr = (s: any, rows: number) => { return (s + "\n").repeat(rows / s.
 export const header = `${hr("-", process.stdout.columns)}
 ${vr("", process.stdout.rows)}
 
-${chalk.yellow("████████ ██      ███████")}     ██      ██ ██    ██ ███████ 
-${chalk.yellow("   ██    ██      ██     ")}     ██      ██ ██    ██ ██      
-${chalk.yellow("   ██    ██      █████  ")}     ██      ██ ██    ██ █████   
-${chalk.yellow("   ██    ██      ██     ")}     ██      ██  ██  ██  ██      
-${chalk.yellow("   ██    ███████ ███████")}     ███████ ██   ████   ███████ 
-
+${chalk.bold(`${chalk.yellow("TLE")} Live`)}
 a simple codeforces livestream
-${chalk.dim("By Nathan Tao (https://github.com/natnuo)")}
+${chalk.dim("by Nathan Tao (https://github.com/natnuo)")}
 
 ${vr("", 1)}`

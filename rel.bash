@@ -1,1 +1,1 @@
-gh release create v1.1.2 --generate-notes zips/*.zip
+gh release create v1.1.3a --generate-notes zips/*.zip
