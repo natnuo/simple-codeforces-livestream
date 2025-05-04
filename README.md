@@ -81,4 +81,5 @@ Please create an issue in this GitHub repository for bug reports.
 
 Thank you to Mike Mirzayanov for the great Codeforces platform.
 
-Note: Codeforces has banned the use of their API during some official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
+Note 1: Codeforces has banned the use of their API during some official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
+Note 2: Do not set your refresh times too low, as will overquery the Codeforces API and may result in your key being restricted.
