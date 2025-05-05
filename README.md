@@ -6,6 +6,8 @@
 
 An easy-to-install, live-updating "submissions" and "standings" display for your Codeforces contest live streams. Gyms, mashups, and team contests are supported.
 
+Please 
+
 <img width="25%" src="https://github.com/user-attachments/assets/39415acc-fde9-4e42-9c3a-8ab44ccac8bd" alt="submissions page"></img>
 <img width="69%" src="https://github.com/user-attachments/assets/cc363763-e3d3-4fdb-b4b0-273536b137d1" alt="standings page"></img>
 
@@ -85,6 +87,19 @@ Simple as that.
 Please create an issue in this GitHub repository for bug reports.
 
 Thank you to Mike Mirzayanov for the great Codeforces platform.
+
+Stars are appreciated.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/27ab039e-f138-494f-bea1-53a5cd74fe1c">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/ab6d6a07-ef92-4324-9db6-165efe202395">
+  <img alt="" src="">
+</picture>
+
+<br/>
+<br/>
+<br/>
+<br/>
 
 Note 1: Codeforces has banned the use of their API during some official Codeforces contests. Ensure your livestream does not occur during such an event to avoid errors.
 
