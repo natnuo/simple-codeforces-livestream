@@ -86,7 +86,7 @@ Please create an issue in this GitHub repository for bug reports.
 
 Thank you to Mike Mirzayanov for the great Codeforces platform.
 
-Stars are appreciated.
+<a href="https://github.com/natnuo/simple-codeforces-livestream" target="_blank">Stars</a> are appreciated.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/ab6d6a07-ef92-4324-9db6-165efe202395">
