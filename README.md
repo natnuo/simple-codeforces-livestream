@@ -91,8 +91,8 @@ Thank you to Mike Mirzayanov for the great Codeforces platform.
 Stars are appreciated.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/27ab039e-f138-494f-bea1-53a5cd74fe1c">
-  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/ab6d6a07-ef92-4324-9db6-165efe202395">
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/ab6d6a07-ef92-4324-9db6-165efe202395">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/27ab039e-f138-494f-bea1-53a5cd74fe1c">
   <img alt="" src="">
 </picture>
 
